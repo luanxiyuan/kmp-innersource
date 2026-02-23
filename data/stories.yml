@@ -1,0 +1,83 @@
+version: "3.1"
+
+stories:
+
+  # 问答应答流程
+  - story: 用户提问并获取答案
+    steps:
+      - intent: ask_question
+      - action: action_search_faq
+      - action: utter_ask_followup
+
+  # 问候流程
+  - story: 用户打招呼
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: utter_ask_question
+
+  # 感谢流程
+  - story: 用户表示感谢
+    steps:
+      - intent: thank
+      - action: utter_welcome
+      - action: utter_ask_question
+
+  # 道别流程
+  - story: 用户告别
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 询问能力流程
+  - story: 用户询问能力
+    steps:
+      - intent: ask_capabilities
+      - action: utter_capabilities
+      - action: utter_ask_question
+
+  # 不理解流程
+  - story: 用户问超出范围的问题
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+      - action: utter_ask_question
+
+  # 完整对话流程：问候 -> 提问 -> 感谢
+  - story: 完整对话流程
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - intent: ask_question
+      - action: action_search_faq
+      - action: utter_ask_followup
+      - intent: thank
+      - action: utter_welcome
+      - action: utter_ask_question
+
+  # 完整对话流程：提问 -> 感谢 -> 道别
+  - story: 提问后道别
+    steps:
+      - intent: ask_question
+      - action: action_search_faq
+      - action: utter_ask_followup
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 用户确认有其他问题
+  - story: 用户确认有其他问题
+    steps:
+      - intent: ask_question
+      - action: action_search_faq
+      - action: utter_ask_followup
+      - intent: affirm
+      - action: utter_await_question
+
+  # 用户否认有其他问题
+  - story: 用户没有其他问题
+    steps:
+      - intent: ask_question
+      - action: action_search_faq
+      - action: utter_ask_followup
+      - intent: deny
+      - action: utter_goodbye

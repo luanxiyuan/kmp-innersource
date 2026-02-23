@@ -1,0 +1,77 @@
+version: "3.1"
+
+intents:
+  - greet
+  - ask_question
+  - thank
+  - goodbye
+  - affirm
+  - deny
+  - ask_capabilities
+  - out_of_scope
+
+actions:
+  - action_search_faq
+  - action_get_faq_details
+  - action_reset_conversation
+  - utter_greet
+  - utter_welcome
+  - utter_goodbye
+  - utter_capabilities
+  - utter_out_of_scope
+  - utter_ask_question
+  - utter_ask_followup
+  - utter_await_question
+  - utter_no_results
+
+responses:
+  utter_greet:
+    - text: |
+        你好！我是公司的知识库助手，可以帮你查找文档和解答问题。
+        请告诉我你想了解什么？
+
+  utter_welcome:
+    - text: |
+        不客气！很高兴能帮到你。
+        还有其他问题吗？
+
+  utter_goodbye:
+    - text: |
+        再见！有需要随时来找我。
+
+  utter_capabilities:
+    - text: |
+        我可以帮你：
+        • 查找文档和资料
+        • 回答部署、配置等技术问题
+        • 提供错误排查建议
+        • 搜索常见问题和解决方案
+
+        直接提问就可以，比如："如何部署服务" 或 "数据库配置方法"
+
+  utter_out_of_scope:
+    - text: |
+        抱歉，我不太理解你的问题。
+        我可以帮你查找文档和解答技术问题。
+        请换个方式提问，比如："如何部署服务"
+
+  utter_ask_question:
+    - text: |
+        请告诉我你想了解什么？
+
+  utter_ask_followup:
+    - text: |
+        这个答案有帮助吗？还有其他问题吗？
+
+  utter_await_question:
+    - text: |
+        请继续提问，我在听。
+
+  utter_no_results:
+    - text: |
+        抱歉，我没有找到相关的内容。
+        请尝试换个关键词或更详细地描述你的问题。
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

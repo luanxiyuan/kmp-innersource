@@ -1,0 +1,93 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Data Files (generated)
+data/faq.json
+data/faq_raw.json
+data/faq_enhanced.json
+data/keyword_index.json
+data/keyword_index_enhanced.json
+data/conversation_guides.json
+data/nlu_generated.yml
+
+# Rasa
+models/
+*.tar.gz
+
+# Logs
+*.log
+logs/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary Files
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Cache
+.cache/
+*.cache
+
+# Build artifacts
+*.exe
+*.whl
+
+# Conda
+.conda/
+
+# Misc
+*.md.backup
+CHANGES.md
+LLM_INTEGRATION.md
+LLM_ENHANCEMENT.md
+3.6.0

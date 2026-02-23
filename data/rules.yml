@@ -1,0 +1,44 @@
+version: "3.1"
+
+rules:
+
+  # 直接响应问候
+  - rule: 总是响应问候
+    steps:
+      - intent: greet
+      - action: utter_greet
+      - action: utter_ask_question
+
+  # 直接响应感谢
+  - rule: 总是响应感谢
+    steps:
+      - intent: thank
+      - action: utter_welcome
+      - action: utter_ask_question
+
+  # 直接响应道别
+  - rule: 总是响应道别
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  # 直接响应能力询问
+  - rule: 总是响应能力询问
+    steps:
+      - intent: ask_capabilities
+      - action: utter_capabilities
+      - action: utter_ask_question
+
+  # 直接响应超出范围的问题
+  - rule: 总是响应超出范围的问题
+    steps:
+      - intent: out_of_scope
+      - action: utter_out_of_scope
+      - action: utter_ask_question
+
+  # 总是处理问题查询
+  - rule: 总是处理用户提问
+    steps:
+      - intent: ask_question
+      - action: action_search_faq
+      - action: utter_ask_followup

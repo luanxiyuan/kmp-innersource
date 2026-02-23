@@ -1,0 +1,28 @@
+# Rasa 对话框架
+rasa>=3.6.0,<4.0.0
+
+# HTML 解析
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+
+# 文本处理
+jieba>=0.42.1
+
+# 工具库
+pyyaml>=6.0
+
+# 大模型 API 支持（可选，用于增强 FAQ）
+python-dotenv>=1.0.0
+openai>=1.0.0           # OpenAI GPT
+anthropic>=0.18.0        # Anthropic Claude
+dashscope>=1.14.0        # 阿里云通义千问
+deepseek>=1.0.0         # DeepSeek （兼容 OpenAI API）
+
+# 本地大模型支持（可选）
+# transformers>=4.30.0
+# torch>=2.0.0
+# accelerate>=0.20.0
+
+# spaCy 中文模型（用于中文 NLP）
+# 运行 setup.bat/setup.sh 时会自动安装
+# zh-core-web-sm>=3.7.0
