@@ -19,17 +19,15 @@ from faq_enhancer import FAQEnhancer
 async def build_enhanced_faq(
     html_dir: str = "confluence_html",
     output_file: str = "data/faq_enhanced.json",
-    model_type: str = None,
-    enable_enhancement: bool = True
+    model_type: str = None
 ):
     """
     构建增强型 FAQ 知识库
-    
+
     Args:
         html_dir: HTML 文件目录
         output_file: 输出 FAQ JSON 文件路径
         model_type: 大模型类型（None 则从环境变量读取）
-        enable_enhancement: 是否启用大模型增强
     """
     print("=" * 60)
     print("开始构建增强型 FAQ 知识库")
@@ -82,24 +80,20 @@ async def build_enhanced_faq(
         json.dump(raw_faq_data, f, ensure_ascii=False, indent=2)
     print(f"原始 FAQ 已保存到: {raw_faq_file}")
     
-    # ==================== 步骤 2: 大模型优化（可选）====================
-    if enable_enhancement:
-        print(f"\n步骤 2: 使用大模型优化 FAQ")
-        
-        try:
-            # 初始化增强器
-            enhancer = FAQEnhancer(model_type=model_type)
-            
-            # 批量优化
-            enhanced_items = await enhancer.enhance_faq_batch(raw_faq_items)
-            
-        except Exception as e:
-            print(f"[WARN] 大模型优化失败: {e}")
-            print("将使用原始 FAQ 继续...")
-            enhanced_items = raw_faq_items
-    else:
-        print(f"\n步骤 2: 跳过大模型优化（使用原始 FAQ）")
-        enhanced_items = raw_faq_items
+    # ==================== 步骤 2: 大模型优化 ====================
+    print(f"\n步骤 2: 使用大模型优化 FAQ")
+
+    try:
+        # 初始化增强器
+        enhancer = FAQEnhancer(model_type=model_type)
+
+        # 批量优化
+        enhanced_items = await enhancer.enhance_faq_batch(raw_faq_items)
+
+    except Exception as e:
+        print(f"[ERROR] 大模型优化失败: {e}")
+        print("请检查 API 配置或网络连接")
+        return False
     
     # ==================== 步骤 3: 保存增强型 FAQ ====================
     print(f"\n步骤 3: 保存增强型 FAQ JSON")
@@ -108,7 +102,7 @@ async def build_enhanced_faq(
     
     faq_data = {
         "version": "2.0",
-        "enhanced": enable_enhancement,
+        "enhanced": True,
         "model_type": model_type,
         "count": len(enhanced_items),
         "items": enhanced_items
@@ -155,9 +149,7 @@ async def build_enhanced_faq(
     print(f"\n统计信息:")
     print(f"  - HTML 文件: {len(parser.find_html_files())}")
     print(f"  - FAQ 条目: {len(enhanced_items)}")
-    print(f"  - 是否增强: {enable_enhancement}")
-    if enable_enhancement:
-        print(f"  - 使用模型: {model_type}")
+    print(f"  - 使用模型: {model_type}")
     print(f"  - FAQ 文件: {output_path}")
     print(f"  - 关键词索引: {index_path}")
     print(f"  - 对话引导: {guides_path}")
@@ -243,26 +235,20 @@ def main():
     )
     parser.add_argument(
         "--model-type",
-        choices=['openai', 'anthropic', 'qwen', 'local'],
+        choices=['openai', 'anthropic', 'qwen', 'deepseek', 'local'],
         help="大模型类型 (默认从环境变量 LLM_TYPE 读取)"
     )
-    parser.add_argument(
-        "--no-enhance",
-        action="store_true",
-        help="不使用大模型优化（仅解析 HTML）"
-    )
-    
+
     args = parser.parse_args()
-    
+
     success = asyncio.run(
         build_enhanced_faq(
             html_dir=args.html_dir,
             output_file=args.output,
-            model_type=args.model_type,
-            enable_enhancement=not args.no_enhance
+            model_type=args.model_type
         )
     )
-    
+
     sys.exit(0 if success else 1)
 
 

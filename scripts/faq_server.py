@@ -1,6 +1,6 @@
 """
 轻量级 FAQ 问答服务器
-不依赖 Rasa，直接使用 FAQ JSON 提供问答服务
+依赖 AI 增强的 FAQ JSON，提供问答服务
 """
 
 import json
@@ -49,20 +49,12 @@ class FAQServer:
             with open(self.faq_file, 'r', encoding='utf-8') as f:
                 self.faq_data = json.load(f)
                 self.faqs = self.faq_data.get('items', [])
-                print(f"[OK] 加载 FAQ 文件: {self.faq_file}")
+                print(f"[OK] 加载增强型 FAQ 文件: {self.faq_file}")
                 print(f"     共 {len(self.faqs)} 个 FAQ 条目")
         else:
-            # 尝试加载基础 FAQ
-            base_file = Path("data/faq.json")
-            if base_file.exists():
-                with open(base_file, 'r', encoding='utf-8') as f:
-                    self.faq_data = json.load(f)
-                    self.faqs = self.faq_data.get('items', [])
-                    print(f"[OK] 加载基础 FAQ 文件: {base_file}")
-                    print(f"     共 {len(self.faqs)} 个 FAQ 条目")
-            else:
-                print(f"[ERROR] 未找到 FAQ 文件")
-                self.faqs = []
+            print(f"[ERROR] 未找到增强型 FAQ 文件")
+            print(f"     请先运行 python scripts/build_faq_enhanced.py")
+            self.faqs = []
     
     def _build_index(self):
         """构建关键词索引"""

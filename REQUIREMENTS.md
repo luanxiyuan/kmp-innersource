@@ -21,7 +21,7 @@
   - 支持中文问答
 - **匹配方式**: 基于关键词匹配、同义词扩展和 Rasa NLU 意图分类
 
-### 3. AI 增强功能（可选但推荐）
+### 3. AI 增强功能（必需但推荐）
 
 #### 3.1 答案优化
 - 将原始 HTML 文本提炼为简洁、自然的问答语言
@@ -49,7 +49,7 @@
   - BeautifulSoup4: HTML 解析
   - jieba: 中文分词
 
-#### AI 增强模块（可选）
+#### AI 增强模块（必需）
 - **OpenAI**: GPT-3.5/GPT-4
 - **Anthropic**: Claude 系列
 - **阿里云**: 通义千问
@@ -75,7 +75,7 @@
 #### 完全本地运行
 - ✅ 不依赖云服务（OpenAI、Azure 等）用于核心功能
 - ✅ 所有数据存储在本地
-- ✅ 支持离线运行（AI 增强除外）
+- ✅ 需联网访问 AI API
 
 #### 中文支持
 - ✅ 中文分词（jieba）
@@ -210,7 +210,7 @@ source venv/bin/activate
 # 2. 安装依赖
 pip install -r requirements.txt
 
-# 3. 配置 AI（可选）
+# 3. 配置 AI（必需）
 # Windows
 copy .env.example .env
 
@@ -252,7 +252,7 @@ rasa run actions
 
 ### 初次使用
 1. 将 Confluence 导出的 HTML 文件放入 `./confluence_html/` 目录
-2. （可选）配置 `.env` 文件，填入 AI API 密钥
+2. （必需）配置 `.env` 文件，填入 AI API 密钥
 3. 运行 `python scripts/build_faq_enhanced.py` 生成增强型 FAQ
 4. 运行 `rasa train` 训练对话模型
 5. 运行 `rasa run --enable-api --cors "*"` 启动 Rasa 服务器
@@ -370,7 +370,7 @@ kmp-innersource/
 - ✅ 所有数据本地存储
 - ✅ 核心功能不向外部发送任何数据
 - ✅ 支持完全离线运行（AI 增强除外）
-- ✅ 用户对话日志可选保存
+- ✅ 用户对话日志必需保存
 - ✅ API 密钥通过环境变量安全管理
 
 ## 后续优化方向

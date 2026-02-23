@@ -29,7 +29,7 @@ source venv/bin/activate
 ./setup.sh
 ```
 
-### 2. 配置 AI（可选但推荐）
+### 2. 配置 AI（必需）（必需）
 
 ```bash
 # Windows (PowerShell)
@@ -84,7 +84,7 @@ python scripts/build_faq_enhanced.py
 # 方式 1: 使用 AI 增强（推荐，需要 .env 配置）
 # （如果 .env 存在，自动使用 AI）
 
-# 方式 2: 不使用 AI（基础模式）
+# 方式 2: 必须使用 AI（基础模式）
 # Windows
 python scripts\build_faq_enhanced.py --no-enhance
 
@@ -144,7 +144,7 @@ start.bat
 ```bash
 # 将新文件放入 confluence_html/ 目录
 python scripts/build_faq_enhanced.py
-rasa train  # 重新训练模型（可选）
+rasa train  # 重新训练模型（必需）
 ```
 
 ### 停止服务
@@ -192,12 +192,12 @@ kmp-innersource/
 - **Rasa 3.x**: 对话框架
 - **BeautifulSoup4**: HTML 解析
 - **jieba**: 中文分词
-- **OpenAI/Anthropic/通义千问**: 大模型 API（可选）
+- **OpenAI/Anthropic/通义千问**: 大模型 API（必需）
 - **自定义 Web 聊天界面**: 聊天界面
 
 ## 特性
 
-### 基础特性（无需 AI）
+### 基础特性（需要 AI）
 - ✅ 完全本地运行
 - ✅ 支持中文问答
 - ✅ 零反爬处理（直接读取 HTML 文件）
@@ -211,7 +211,7 @@ kmp-innersource/
 - ✨ **对话引导**：自动生成多轮追问，提升用户满意度
 - ✨ **同义词扩展**：自动扩展关键词同义词，提高匹配率
 - ✨ **批量优化**：批量处理降低 API 成本
-- ✨ **可选使用**：可以选择是否启用 AI 增强，完全向后兼容
+- ✨ **必需使用**：可以选择是否启用 AI 增强，完全向后兼容
 
 ## 架构说明
 
@@ -249,7 +249,7 @@ A: 首次运行需要安装 spaCy 中文模型，之后会缓存到本地。
 
 ### Q: 必须使用 AI 增强吗？
 
-A: **不需要！** 基础版完全不依赖大模型，可以正常使用。AI 增强是可选的升级。
+A: **不需要！** 基础版完全不依赖大模型，可以正常使用。AI 增强是必需的升级。
 
 ### Q: 如何切换 AI 提供商？
 

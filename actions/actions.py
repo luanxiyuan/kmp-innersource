@@ -33,21 +33,10 @@ class ActionSearchFAQ(Action):
         """加载 FAQ 数据（懒加载）"""
         if self.faq_loaded:
             return True
-        
-        # 优先加载增强型 FAQ
-        faq_files = [
-            project_root / "data" / "faq_enhanced.json",
-            project_root / "data" / "faq.json"
-        ]
-        
-        index_files = [
-            project_root / "data" / "keyword_index_enhanced.json",
-            project_root / "data" / "keyword_index.json"
-        ]
-        
-        for faq_file in faq_files:
-            if faq_file.exists():
-                break
+
+        # 加载增强型 FAQ
+        faq_file = project_root / "data" / "faq_enhanced.json"
+        index_file = project_root / "data" / "keyword_index_enhanced.json"
         
         for index_file in index_files:
             if index_file.exists():
@@ -59,11 +48,11 @@ class ActionSearchFAQ(Action):
                 faq_data = json.load(f)
             
             self.faq_items = faq_data.get('items', [])
-            
-            # 检查是否是增强型 FAQ
-            self.is_enhanced = faq_data.get('enhanced', False)
-            
-            print(f"✓ 加载 {'增强型' if self.is_enhanced else '基础型'} FAQ: {len(self.faq_items)} 条")
+
+        # 检查是否是增强型 FAQ
+        self.is_enhanced = faq_data.get('enhanced', False)
+
+        print(f"✓ 加载增强型 FAQ: {len(self.faq_items)} 条")
             
             # 加载关键词索引
             if index_file.exists():
@@ -119,7 +108,7 @@ class ActionSearchFAQ(Action):
             dispatcher.utter_message(text=response)
             
             # 如果有对话引导，添加追问提示
-            if self.is_enhanced and result.get('conversation_starters'):
+            if result.get('conversation_starters'):
                 starters = result.get('conversation_starters', [])
                 if starters:
                     followup = "\n\n💡 **可能还想知道：**\n"
@@ -280,16 +269,9 @@ class ActionGetFAQDetails(Action):
         """加载 FAQ 数据（懒加载）"""
         if self.faq_loaded:
             return True
-        
-        # 优先加载增强型 FAQ
-        faq_files = [
-            project_root / "data" / "faq_enhanced.json",
-            project_root / "data" / "faq.json"
-        ]
-        
-        for faq_file in faq_files:
-            if faq_file.exists():
-                break
+
+        # 加载增强型 FAQ
+        faq_file = project_root / "data" / "faq_enhanced.json"
         
         try:
             with open(faq_file, 'r', encoding='utf-8') as f:
